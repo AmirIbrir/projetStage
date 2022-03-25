@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Visitor message{% endblock %}
+
+{% block body %}
+
+
+
+<center>
+  <h1>Messages visiteurs</h1>
+</center>  
+
+<h2>Dernier message</h2>
+<p>AUTEUR: {{lastMessage.fullName}}
+<br>
+MESSAGE: {{lastMessage.content}}
+</p>
+<br>
+<h2>Tout les messages</h2>
+<ul>
+{% for message in visitorMessages %}
+<li>{{message.fullName}} | {{message.content}}</li>
+    
+{% endfor %}
+
+</ul>
+{% endblock %}
