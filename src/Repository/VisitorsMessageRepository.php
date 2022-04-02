@@ -2,30 +2,30 @@
 
 namespace App\Repository;
 
-use App\Entity\VisitorMessage;
+use App\Entity\VisitorsMessage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method VisitorMessage|null find($id, $lockMode = null, $lockVersion = null)
- * @method VisitorMessage|null findOneBy(array $criteria, array $orderBy = null)
- * @method VisitorMessage[]    findAll()
- * @method VisitorMessage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method VisitorsMessage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method VisitorsMessage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method VisitorsMessage[]    findAll()
+ * @method VisitorsMessage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VisitorMessageRepository extends ServiceEntityRepository
+class VisitorsMessageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, VisitorMessage::class);
+        parent::__construct($registry, VisitorsMessage::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(VisitorMessage $entity, bool $flush = true): void
+    public function add(VisitorsMessage $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -37,7 +37,7 @@ class VisitorMessageRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(VisitorMessage $entity, bool $flush = true): void
+    public function remove(VisitorsMessage $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -46,7 +46,7 @@ class VisitorMessageRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return VisitorMessage[] Returns an array of VisitorMessage objects
+    //  * @return VisitorsMessage[] Returns an array of VisitorsMessage objects
     //  */
     /*
     public function findByExampleField($value)
@@ -63,7 +63,7 @@ class VisitorMessageRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?VisitorMessage
+    public function findOneBySomeField($value): ?VisitorsMessage
     {
         return $this->createQueryBuilder('v')
             ->andWhere('v.exampleField = :val')

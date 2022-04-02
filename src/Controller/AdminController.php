@@ -2,35 +2,34 @@
 
 namespace App\Controller;
 
-use App\Repository\VisitorMessageRepository;
-use Doctrine\ORM\Mapping\Id;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use App\Repository\VisitorsMessageRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-    
-    #[IsGranted("ROLE_USER")]
+
+
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin')]
-    public function index(): Response
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function index(
+        VisitorsMessageRepository $visitorsMessageRepository
+    ): Response
     {
+        
+        $messages = $visitorsMessageRepository->findAll();
+
         return $this->render('admin/index.html.twig', [
-            'controller_name' => 'AdminController',
+            "messages" => $messages
         ]);
     }
 
-    #[Route('/admin/visitor/message', name: 'admin_visitor_message')]
-    public function visitorMessages (VisitorMessageRepository $repo) 
-    {
-        $messages  = $repo->findAll();
 
-        return $this->render('admin/visitor_message.html.twig', [
-            "visitorMessages" => $messages,
-            "lastMessage" => $repo->findOneBy([],['id'=>'DESC'])
-            
-        ]);
-
-    }
 }
