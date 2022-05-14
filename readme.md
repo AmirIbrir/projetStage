@@ -38,7 +38,7 @@ cp .env .env.local
 ```
 You have to update the [.env.local](.env.local) file with the database informations.
 
-### 3 - Setup the database
+#### 3 - Setup the database
 ```shell
 #Create the database
 php bin/console doctrine:database:create
@@ -46,12 +46,12 @@ php bin/console doctrine:database:create
 php bin/console doctrine:schema:update -f
 ```
 
-### 4 - Create the admin user for backfoffice access
+#### 4 - Create the admin user for backfoffice access
 ```shell
 php bin/console user:create
 ```
 
-### 5 - Run the Symfony and Encore servers
+#### 5 - Run the Symfony and Encore servers
 ```shell
 #Run webpack-encore server
 yarn watch 
