@@ -48,5 +48,13 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(): Response
+    {
+      return $this->render('home/sections/contact_form.html.twig', [
+            'controller_name' => 'test',
+        ]);
+    }
+
    
 }
