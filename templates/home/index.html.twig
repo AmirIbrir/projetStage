@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Labela business{% endblock %}
 
 {% block body %}
     
@@ -46,7 +46,7 @@
           </div>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="assets/images/service_01.jpg" alt="">
+              <img src="{{asset('build/images/service_01.jpg')}}" alt="">
               <div class="down-content">
                 <h4>Digital Currency</h4>
                 <p>Sed tincidunt dictum lobortis. Aenean tempus diam vel augue luctus dignissim. Nunc ornare leo tortor.</p>
@@ -56,7 +56,7 @@
           </div>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="assets/images/service_02.jpg" alt="">
+              <img src="{{asset('build/images/service_02.jpg')}}" alt="">
               <div class="down-content">
                 <h4>Market Analysis</h4>
                 <p>Sed tincidunt dictum lobortis. Aenean tempus diam vel augue luctus dignissim. Nunc ornare leo tortor.</p>
@@ -66,7 +66,7 @@
           </div>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="assets/images/service_03.jpg" alt="">
+              <img src="{{asset('build/images/service_03.jpg')}}" alt="">
               <div class="down-content">
                 <h4>Historical Data</h4>
                 <p>Sed tincidunt dictum lobortis. Aenean tempus diam vel augue luctus dignissim. Nunc ornare leo tortor.</p>
@@ -202,19 +202,19 @@
       </div>
     </div>
 
-    <!-- Formulaire de contact -->    
-    {% include "home/sections/contact_form.html.twig" %}
+<!-- Formulaire de contact -->    
+    {% include "home/sections/contact_form.html.twig" %}    
 
 
 
-    <div class="partners">
+    {# <div class="partners">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="owl-partners owl-carousel">
             
               <div class="partner-item">
-                <img src="{{asset('build/images/client-01.png')}}"title="1 alt="1">
+                <img src="{{asset('build/images/client-01.png')}}"title="1" alt="1">
               </div>
               
               <div class="partner-item">
@@ -237,10 +237,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> #}
 
 
     <!-- footer du site -->
+    
     {% include "home/sections/footer.html.twig" %}
 
 {% endblock %}

@@ -40,6 +40,8 @@ class HomeController extends AbstractController
         ]);
     }
 
+    
+
     #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
@@ -49,12 +51,59 @@ class HomeController extends AbstractController
     }
 
     #[Route('/contact', name: 'app_contact')]
-    public function contact(): Response
+    public function contact(
+        Request $request,
+        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+
+    ): Response
     {
-      return $this->render('home/sections/contact_form.html.twig', [
-            'controller_name' => 'test',
+        $message = new VisitorsMessage();
+
+        // On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message);
+
+        // SI le formulaire comporte le formulaire complété, il va mettre à jour la variable $message
+        $form->handleRequest($request);
+        
+        // On s'assure que le form est soumis et qu'il est valide
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($message);
+            $manager->flush();
+            return $this->redirectToRoute("app_contact");
+        }
+        return $this->render('home/contact.html.twig',  [
+            "formMessage" => $form->createView()
+            //'controller_name' => 'HomeController',
         ]);
     }
+    
+    #[Route('/services', name: 'app_services')]
+    public function services(
+        Request $request,
+        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+
+    ): Response
+    {
+        $message = new VisitorsMessage();
+
+        // On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message);
+
+        // SI le formulaire comporte le formulaire complété, il va mettre à jour la variable $message
+        $form->handleRequest($request);
+        
+        // On s'assure que le form est soumis et qu'il est valide
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($message);
+            $manager->flush();
+            return $this->redirectToRoute("app_services");
+        }
+        return $this->render('home/services.html.twig',  [
+            "formMessage" => $form->createView()
+            //'controller_name' => 'HomeController',
+        ]);
+    }
+
 
    
 }

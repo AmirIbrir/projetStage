@@ -12,6 +12,7 @@ import './css/fontawesome.css';
 import './css/owl.css';
 import './css/templatemo-finance-business.css';
 import './css/app.css';
+import './css/style.css';
 
 //node_module -> je ne mets pas le ./
 import 'bootstrap/dist/css/bootstrap.min.css';

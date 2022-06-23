@@ -23,7 +23,7 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Finance Business</h2></a>
+          <a class="navbar-brand" href="{{path('home')}}"><h2>Labella Business</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -35,15 +35,15 @@
               <li class="nav-item {% if app.request.pathInfo=='/about'%} active {% endif %}">
                 <a class="nav-link" href="{{path('app_about')}}">About Us</a>
               </li>  
-              <li class="nav-item{% if app.request.pathInfo==''%} active {% endif %} ">
-                <a class="nav-link" href="{{path('home')}}#services">Our Services</a>
+              <li class="nav-item{% if app.request.pathInfo=='/services'%} active {% endif %} ">
+                <a class="nav-link" href="{{path('app_services')}}">Our Services</a>
               </li>                          
               <li class="nav-item{% if app.request.pathInfo=='/contact'%} active {% endif %} ">
-                <a class="nav-link" href="#contact">Contact Us</a>
+                <a class="nav-link" href="{{path('app_contact')}}">Contact Us</a>
               </li>
-              <li class="nav-item">
+              {# <li class="nav-item">
                 <a class="nav-link" href="one-page.html">One Page</a>
-              </li>
+              </li> #}
             </ul>
           </div>
         </div>
