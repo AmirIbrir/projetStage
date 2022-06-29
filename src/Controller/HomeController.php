@@ -16,14 +16,37 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(
         Request $request,
-        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
 
     ): Response
     {
         $message = new VisitorsMessage();
 
         // On va spécifier une autre route pour la soumission du formualaire
-        $form = $this->createForm(VisitorMessageType::class, $message);
+        $form = $this->createForm(VisitorMessageType::class, $message, [
+            "action"=>$this->generateUrl("home_visitor_message_post")
+        ]);
+
+        
+        return $this->render('home/index.html.twig',  [
+            "formMessage" => $form->createView()
+            //'controller_name' => 'HomeController',
+        ]);
+    }
+
+    
+    #[Route('/visitor-message/post', name:'home_visitor_message_post', methods:'POST') ]
+    public function postVisitorMessageAjax(
+        Request $request,
+        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+    ):Response
+    {
+
+        $message = new VisitorsMessage();
+
+        // On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message, [
+            "action"=>$this->generateUrl("home_visitor_message_post")
+        ]);
 
         // SI le formulaire comporte le formulaire complété, il va mettre à jour la variable $message
         $form->handleRequest($request);
@@ -32,66 +55,20 @@ class HomeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($message);
             $manager->flush();
-            return $this->redirectToRoute("home");
-        }
-        return $this->render('home/index.html.twig',  [
-            "formMessage" => $form->createView()
-            //'controller_name' => 'HomeController',
-        ]);
-    }
-
-    /**
-     * @return void
-     * @Route("/visitor-message/post", name="home_visitor_message_post", methods={"GET", "POST"})
-     */
-    public function postVisitorMessageAJAX(
-        Request $request,
-        EntityManagerInterface $manager,
-        MailerInterface $mailer
-    ):Response
-    {
-
-        $message = new VistorMessage();
-
-        // On va spécifier une autre route pour la soumission du formualaire
-        $form = $this->createForm( VisitorMessageType::class, $message, [
-            "action" => $this->generateUrl("home_visitor_message_post")
-        ] );
-
-
-        // SI le formulaire comporte le formulaire complété, il va mettre à jour la variable $message
-        $form->handleRequest($request);
-
-        // ON s'assure que le form est soumis et qu'il est valide
-        if( $form->isSubmitted() && $form->isValid() ){
-            $manager->persist($message);
-            $manager->flush();
-
-            $email = new Email();
-
-
-            $email
-                ->from("nepasrepondre@bella.com")
-                ->to("devdemalade@outlook.fr")
-                ->subject("Un message vous attend sur BellaFinance")
-                ->html('<p>Vous avez reçu un email sur BellaFinance</p>');
-            $mailer->send($email);
-
-
-
             // Renvoyer la réponse en JSON
-            return $this->json([
-                "message"   => "Votre message a bien été envoyé, Merci!"
-            ],
-                Response::HTTP_OK);
+        return $this->json([
+            "message"   => "Votre message a bien été envoyé, Merci!"
+        ],
+            Response::HTTP_OK); 
         }
-
         // Renvoyer la réponse en JSON
         return $this->json([
-            "message"   => "Votre message n'a pas pu être envoyé!"
+            "message"   => "Votre message n'a pas pu etre envoyé!"
         ],
-        Response::HTTP_BAD_REQUEST);
+            Response::HTTP_BAD_REQUEST); 
     }
+
+    
 
     
 
