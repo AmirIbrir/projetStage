@@ -25,7 +25,7 @@ import './js/custom.js';
 import './js/owl.js';
 import './js/slick.js';
 import './js/jquery.singlePageNav.min.js';
-
+import 'animate.css/animate.css';
 
 // start the Stimulus application
 import './bootstrap';

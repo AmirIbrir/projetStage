@@ -83,7 +83,7 @@ class HomeController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function contact(
         Request $request,
-        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+        //EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
 
     ): Response
     {
@@ -92,6 +92,30 @@ class HomeController extends AbstractController
         // On va spécifier une autre route pour la soumission du formualaire
         $form = $this->createForm(VisitorMessageType::class, $message);
 
+        /// On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message, [
+            "action"=>$this->generateUrl("home_visitor_message_post")
+        ]);
+        return $this->render('home/contact.html.twig',  [
+            "formMessage" => $form->createView()
+            //'controller_name' => 'HomeController',
+        ]);
+    }
+
+    #[Route('/contact-message/post', name:'contact_visitor_message_post', methods:'POST') ]
+    public function postContactMessageAjax(
+        Request $request,
+        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+    ):Response
+    {
+
+        $message = new VisitorsMessage();
+
+        // On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message, [
+            "action"=>$this->generateUrl("contact_visitor_message_post")
+        ]);
+
         // SI le formulaire comporte le formulaire complété, il va mettre à jour la variable $message
         $form->handleRequest($request);
         
@@ -99,12 +123,17 @@ class HomeController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $manager->persist($message);
             $manager->flush();
-            return $this->redirectToRoute("app_contact");
+            // Renvoyer la réponse en JSON
+        return $this->json([
+            "message"   => "Votre message a bien été envoyé, Merci!"
+        ],
+            Response::HTTP_OK); 
         }
-        return $this->render('home/contact.html.twig',  [
-            "formMessage" => $form->createView()
-            //'controller_name' => 'HomeController',
-        ]);
+        // Renvoyer la réponse en JSON
+        return $this->json([
+            "message"   => "Votre message n'a pas pu etre envoyé!"
+        ],
+            Response::HTTP_BAD_REQUEST); 
     }
     
     #[Route('/services', name: 'app_services')]

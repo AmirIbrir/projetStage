@@ -2,6 +2,10 @@
     color: white;
 }
 
+.title-green{
+    color: #a4c639;
+}
+
 .error-message{
     border: 1px solid white;
     background: white;

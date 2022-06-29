@@ -99,8 +99,8 @@ https://templatemo.com/tm-545-finance-business
           <div class="col-md-12">
             <div class="contact-form">
             <!-- Remplace la balise form ouvrante -->
-            {{form_start(formMessage)}}
-              <form id="contact" action="" method="get">
+            {{form_start(formMessage, { attr : { "data-controller" : "postform2-ajax"} })}}
+              <!--<form id="contact" action="" method="get">-->
                 <div class="row">
                   <div class="col-lg-4 col-md-12 col-sm-12">
                     <fieldset>
