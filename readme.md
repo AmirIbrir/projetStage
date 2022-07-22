@@ -1,8 +1,7 @@
 # Labella Business
 ___
 
-Labella Business is a website made on Symfony 6.0 framework, for ____ in order to allow visitors to contact him.
-
+Labella Business is a website built on Symfony 6.0 framework. Investors who want to create their company in UAE can contact the administrator.
 ___
 
 
