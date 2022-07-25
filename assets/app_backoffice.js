@@ -12,6 +12,7 @@
 //node_module -> je ne mets pas le ./
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'popper.js';
+import './css/sticky-nav.css';
 
 import 'bootstrap/dist/js/bootstrap.js';
 import 'jquery/dist/jquery.min.js';
