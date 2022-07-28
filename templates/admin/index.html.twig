@@ -16,7 +16,7 @@
 
         {% if visitorMessages is empty %}
                 <div class="alert alert-warning">
-                    Il n'y pas de messages {% if isArchive %}archivés{% endif %}!
+                    Il n'y a pas de messages {% if isArchive %}archivés{% endif %}!
                 </div>
         {% else %}
         <ul class="list-group">
@@ -27,6 +27,7 @@
                     <div class="row">
                         <div class="col-7">
                             <strong class="">{{ message.fullName }}</strong> - {{ message.subject }} <br>
+                            <p>Contenu:{{message.messageContent}}</p><br>
                             Email: <a href="mailto:{{ message.email }}"> {{ message.email }}</a>
                             {% if message.visitorEmailResponses|length > 0  %}
                                 <br>
@@ -41,8 +42,8 @@
                             {% if isArchive %}
                                 <a href="{{ path('admin_vmess_unarchive', { id : message.id }) }}" class="btn btn-warning" data-controller="ajax-button" >Désarchiver</a>
                             {% else %}
-                                <a href="{{ path('admin_vmess_send_email', { id : message.id }) }}" class="btn btn-success">Répondre</a>
-                                <a href="{{ path('admin_vmess_archive', { id : message.id }) }}" class="btn btn-warning" data-controller="ajax-button" >Archiver</a>
+                                <a href="{{ path('admin_vmess_send_email', { id : message.id }) }}" class="btn btn-primary">Répondre</a>
+                                <a href="{{ path('admin_vmess_archive', { id : message.id }) }}" class="btn btn-secondary" data-controller="ajax-button" >Archiver</a>
                             {% endif %}
                             <a href="{{ path('admin_vmess_delete', { id : message.id }) }}" class="btn btn-danger" data-controller="ajax-button" >Supprimer</a>
                         </div>

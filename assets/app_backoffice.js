@@ -17,6 +17,12 @@ import './css/sticky-nav.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'jquery/dist/jquery.min.js';
 
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+// CommonJS
+global.Swal = require('sweetalert2')
+
 
 // start the Stimulus application
 import './bootstrap';

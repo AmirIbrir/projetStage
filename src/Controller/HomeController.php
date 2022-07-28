@@ -72,7 +72,7 @@ class HomeController extends AbstractController
 
     
 
-    #[Route('/about', name: 'app_about')]
+    #[Route('/about', name: 'app_about', methods:['GET'])]
     public function about(): Response
     {
       return $this->render('home/about.html.twig', [
@@ -88,6 +88,8 @@ class HomeController extends AbstractController
     ): Response
     {
         $message = new VisitorsMessage();
+
+        
 
         // On va spécifier une autre route pour la soumission du formualaire
         $form = $this->createForm(VisitorMessageType::class, $message);
