@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
@@ -157,7 +158,8 @@ class AdminController extends AbstractController
                 ->subject('Vous avez un message!!')
                 ->text('Sending emails is fun again!')
                 ->html('<p>See Twig integration for better HTML integration!</p>');
-        $mailer->send($email);
+                
+        $this->mailer->send($email);
 
         return $this->redirectToRoute("admin");
 
@@ -191,15 +193,15 @@ class AdminController extends AbstractController
             $response->setCreatedAt( new \DateTimeImmutable("now"));
             $emailResponseRepository->add($response);
 
-            $email = new Email();
+            $email = (new Email())
 
 
-            $email
-                ->from("nepasrepondre@bella.com")
+            
+                ->from('nepasrepondre@bella.com')
                 ->to($visitorsMessage->getEmail())
                 ->subject($response->getSubject())
                 ->html('<p>'.$response->getContent().'</p>');
-            $mailer->send($email);
+            $this->mailer->send($email);
 
 
             return $this->redirectToRoute( "admin" );
