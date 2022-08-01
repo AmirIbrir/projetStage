@@ -43,6 +43,8 @@ class VisitorsMessage
         return $this->id;
     }
 
+    
+
     public function getFullName(): ?string
     {
         return $this->fullName;
