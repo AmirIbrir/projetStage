@@ -16,6 +16,11 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
+
+    "engines": {
+        "node": "v16.14.*",
+        "npm": "8.5.*"
+    },
     "dependencies": {
         "animate.css": "^4.1.1",
         "bootstrap": "4",

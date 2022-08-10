@@ -201,7 +201,7 @@ class AdminController extends AbstractController
                 ->to($visitorsMessage->getEmail())
                 ->subject($response->getSubject())
                 ->html('<p>'.$response->getContent().'</p>');
-            $this->mailer->send($email);
+            $mailer->send($email);
 
 
             return $this->redirectToRoute( "admin" );
