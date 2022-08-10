@@ -67,7 +67,7 @@ class HomeController extends AbstractController
                 ->from('nepasrepondre@bella.com')
                 ->to('admin.labela@labela.com')
                 ->subject('Nouveau message sur le backoffice')
-                ->html('<p>Veuillez vous connecyer au <a href="'.$this->generateUrl("app_login").'">Backoffice</a> pour y répondre</p>');
+                ->html('<p>Veuillez vous connecyer au <a href="'.$this->generateUrl("admin",[],true).'">Backoffice</a> pour y répondre</p>'); //chemin vers admin
             $mailer->send($email);
 
         return $this->json([
