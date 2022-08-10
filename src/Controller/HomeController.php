@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\VisitorsMessage;
-use App\Form\VisitorMessageType;
 use Doctrine\ORM\EntityManager;
+use App\Form\VisitorMessageType;
+use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Loader\Configurator\mailer;
 
 class HomeController extends AbstractController
 {
@@ -37,6 +39,7 @@ class HomeController extends AbstractController
     #[Route('/visitor-message/post', name:'home_visitor_message_post', methods:'POST') ]
     public function postVisitorMessageAjax(
         Request $request,
+        MailerInterface $mailer,
         EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
     ):Response
     {
@@ -56,6 +59,16 @@ class HomeController extends AbstractController
             $manager->persist($message);
             $manager->flush();
             // Renvoyer la réponse en JSON
+            $email = (new Email())
+
+
+            
+                ->from('nepasrepondre@bella.com')
+                ->to('admin.labela@labela.com')
+                ->subject('Nouveau message sur le backoffice')
+                ->html('<p>Veuillez vous connecyer au <a href="'.$this->generateUrl("app_login").'">Backoffice</a> pour y répondre</p>');
+            $mailer->send($email);
+
         return $this->json([
             "message"   => "Votre message a bien été envoyé, Merci!"
         ],
