@@ -8,6 +8,7 @@ use App\Form\VisitorMessageType;
 use Symfony\Component\Mime\Email;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,7 @@ class HomeController extends AbstractController
     #[Route('/visitor-message/post', name:'home_visitor_message_post', methods:'POST') ]
     public function postVisitorMessageAjax(
         Request $request,
-        MailerInterface $mailer,
+        MailerIntgiterface $mailer,
         EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
     ):Response
     {
