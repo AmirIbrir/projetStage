@@ -40,7 +40,7 @@ class HomeController extends AbstractController
     #[Route('/visitor-message/post', name:'home_visitor_message_post', methods:'POST') ]
     public function postVisitorMessageAjax(
         Request $request,
-        MailerIntgiterface $mailer,
+        MailerInterface $mailer,
         EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
     ):Response
     {
