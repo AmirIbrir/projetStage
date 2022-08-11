@@ -151,8 +151,32 @@ class HomeController extends AbstractController
         ],
             Response::HTTP_BAD_REQUEST); 
     }
-    
+
     #[Route('/services', name: 'app_services')]
+    public function services(
+        Request $request,
+        //EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+
+    ): Response
+    {
+        $message = new VisitorsMessage();
+
+        
+
+        // On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message);
+
+        /// On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message, [
+            "action"=>$this->generateUrl("home_visitor_message_post")
+        ]);
+        return $this->render('home/services.html.twig',  [
+            "formMessage" => $form->createView()
+            //'controller_name' => 'HomeController',
+        ]);
+    }
+    
+   /* #[Route('/services', name: 'app_services')]
     public function services(
         Request $request,
         EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
@@ -177,6 +201,39 @@ class HomeController extends AbstractController
             "formMessage" => $form->createView()
             //'controller_name' => 'HomeController',
         ]);
+    }*/
+    #[Route('/services-message/post', name:'services_visitor_message_post', methods:'POST') ]
+    public function postServicesMessageAjax(
+        Request $request,
+        EntityManagerInterface $manager // EntityManager : Permet de manipuler nos entités ;
+    ):Response
+    {
+
+        $message = new VisitorsMessage();
+
+        // On va spécifier une autre route pour la soumission du formualaire
+        $form = $this->createForm(VisitorMessageType::class, $message, [
+            "action"=>$this->generateUrl("services_visitor_message_post")
+        ]);
+
+        // SI le formulaire comporte le formulaire complété, il va mettre à jour la variable $message
+        $form->handleRequest($request);
+        
+        // On s'assure que le form est soumis et qu'il est valide
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($message);
+            $manager->flush();
+            // Renvoyer la réponse en JSON
+        return $this->json([
+            "message"   => "Votre message a bien été envoyé, Merci!"
+        ],
+            Response::HTTP_OK); 
+        }
+        // Renvoyer la réponse en JSON
+        return $this->json([
+            "message"   => "Votre message n'a pas pu etre envoyé!"
+        ],
+            Response::HTTP_BAD_REQUEST); 
     }
 
 
